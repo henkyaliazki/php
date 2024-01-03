@@ -1,7 +1,7 @@
 <?php
 session_start();
 global $connection;
-include './components/connection.php';
+include 'components/connection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +11,7 @@ include './components/connection.php';
     <title>Register</title>
     <link rel="stylesheet" href="data/bootstrap-5.3.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="">
+    <title>Register</title>
 </head>
 <body>
 <!-- Menu -->
