@@ -17,7 +17,7 @@ if (isset($_SESSION['id_register'])) {
         $firstName = $userData['nama_depan'];
         $lastName = $userData['nama_belakang'];
         $full_name = $firstName . ' ' . $lastName;
-        $country = $userData["negara"];
+        $country = ucwords(strtolower($userData["negara"]));
         $city = $userData['kota'];
         $posCode = $userData['kode_pos'];
         $gender = $userData['jenis_kelamin'];
@@ -59,12 +59,11 @@ if (isset($_SESSION['id_register'])) {
                     <a href="#" class="nav-link active">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Lihat Data</a>
+                    <a href="lihatdata.php" class="nav-link">Lihat Data</a>
                 </li>
             </ul>
             <span class="navbar-text ">
-       Welcome | <?php
-                echo $_SESSION['username'] ?? 'Guest'; ?>
+       Welcome | <?=$_SESSION['username'] ?? 'Guest'; ?>
             </span>
             <a href="index.php" class="btn btn-secondary mx-2">Logout</a>
         </div>
@@ -75,8 +74,7 @@ if (isset($_SESSION['id_register'])) {
 <div class="container">
     <div class="row">
         <div class="col-12 my-5">
-            <h3 class="text-center">Selamat Datang, <?php
-                echo $_SESSION['username'] ?? 'Guest'; ?></h3>
+            <h3 class="text-center">Selamat Datang, <?=$_SESSION['username'] ?? 'Guest'; ?></h3>
         </div>
         <div class="row justify-content-center">
             <div class="d-flex justify-content-end">
@@ -87,56 +85,42 @@ if (isset($_SESSION['id_register'])) {
             <div class="col-md-4">
                 <img src="data/uploads/<?=$photoName ?>" alt="photodash" class="img-fluid">
             </div>
-            <div class="col-md-7">
-                <form action="" class="form-control">
-                    <p>
-                        <span class="info-label">
-                            Nama :
-                        </span>
-                        <?= $full_name ?>
-                    </p>
-                    <p>
-                        <span class="info-label">
-                            Negara :
-                        </span>
-                        <?= $country ?>
-                    </p>
-                    <p>
-                        <span class="info-label">
-                            Kota :
-                        </span>
-                        <?= $city ?>
-                    </p>
-                    <p>
-                        <span class="info-label">
-                            Kode Pos :
-                        </span>
-                        <?= $posCode ?>
-                    </p>
-                    <p>
-                        <span class="info-label">
-                            Jenis kelamin :
-                        </span>
-                        <?= $gender ?>
-                    </p>
-                    <p>
-                        <span class="info-label">
-                            Nomor hp :
-                        </span>
-                        <?= $phoneNumber ?>
-                    </p>
-                    <p>
-                        <span class="info-label">
-                            Tanggal Lahir :
-                        </span>
-                        <?= $birthDate ?>
-                    </p>
-                    <p>
-                        <span class="info-label">
-                            Email :
-                        </span>
-                        <?= $email ?>
-                    </p>
+            <div class="col-md-8">
+                <form action="" class="form-control py-4">
+                    <table>
+                        <tr>
+                            <th>Nama </th>
+                            <td>: <?=$full_name?></td>
+                        </tr>
+                        <tr>
+                            <th>Negara</th>
+                            <td>: <?=$country?></td>
+                        </tr>
+                        <tr>
+                            <th>Kota</th>
+                            <td>: <?=$city?></td>
+                        </tr>
+                        <tr>
+                            <th>Kode Pos</th>
+                            <td>: <?=$posCode?></td>
+                        </tr>
+                        <tr>
+                            <th>Jenis Kelamin</th>
+                            <td>: <?=$gender?></td>
+                        </tr>
+                        <tr>
+                            <th>Nomor Hp</th>
+                            <td>: <?=$phoneNumber?></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal Lahir</th>
+                            <td>: <?=$birthDate?></td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>: <?=$email?></td>
+                        </tr>
+                    </table>
                 </form>
             </div>
         </div>

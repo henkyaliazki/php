@@ -139,7 +139,7 @@ include 'components/connection.php';
                     <label>Jenis Indentitas</label>
                     <?php
 
-                    $query = "SELECT kode_identitas FROM kartu_identitas";
+                    $query = "SELECT nama_kartu_identitas FROM kartu_identitas";
                     $result = mysqli_query($connection,$query);
 
                     if ($result){
@@ -148,7 +148,7 @@ include 'components/connection.php';
                         mysqli_data_seek($result, 1);
 
                         while ($row = mysqli_fetch_assoc($result)){
-                            $documentType =$row['kode_identitas'];
+                            $documentType =$row['nama_kartu_identitas'];
                             echo "<option value='$documentType'>$documentType</option>";
                         }
                         echo "</select>";

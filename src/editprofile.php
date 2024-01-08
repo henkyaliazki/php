@@ -2,6 +2,24 @@
 session_start();
 global $connection;
 include 'components/connection.php';
+
+// Pengecekan Login
+if (!isset($_SESSION['id_register'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Query untuk mendapatkan data pengguna yang login
+$userId = $_SESSION['id_register'];
+$query = "SELECT * FROM tbl_register WHERE id_register = $userId";
+$result = $connection->query($query);
+
+if (!$result) {
+    die("Error fetching user data from the database: " . $connection->error);
+}
+
+$userData = $result->fetch_assoc();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,18 +61,21 @@ include 'components/connection.php';
 <!--end nav-->
 <div class="container">
     <div class="row">
-        <form style="margin-top: 20px;" method="post" action="components/register.php" enctype="multipart/form-data" class="form-control">
+        <form style="margin-top: 20px;" method="post" action="components/editprofile.php?action=save" enctype="multipart/form-data"
+              class="form-control">
             <div class="card-header d-flex justify-content-center">
-               <h4>Edit Profile</h4>
+                <h4>Edit Profile</h4>
             </div>
             <div class="row  d-flex justify-content-center">
                 <div class="col-md-4">
                     <label>Nama Depan</label>
-                    <input type="text" name="firstName" placeholder="Nama Depan" class="form-control">
+                    <input type="text" name="firstName" value="<?= $userData['nama_depan']; ?>"
+                           placeholder="Nama Depan" class="form-control">
                 </div>
                 <div class="col-md-4">
                     <label>Nama Belakang</label>
-                    <input type="text" name="lastName" placeholder="Nama Belakang" class="form-control">
+                    <input type="text" name="lastName" value="<?= $userData['nama_belakang']; ?>"
+                           placeholder="Nama Belakang" class="form-control">
                 </div>
             </div>
             <div class="row  d-flex justify-content-center">
@@ -79,36 +100,42 @@ include 'components/connection.php';
                 </div>
                 <div class="col-md-4">
                     <label>Kota</label>
-                    <input type="text" name="city" class="form-control">
+                    <input type="text" name="city" value="<?= $userData['kota']; ?>" class="form-control">
                 </div>
             </div>
             <div class="row  d-flex justify-content-center">
                 <div class="col-md-4">
                     <label>Kode Pos</label>
-                    <input type="text" name="posCode" class="form-control">
+                    <input type="text" name="posCode" value="<?= $userData['kode_pos']; ?>" class="form-control">
                 </div>
                 <div class="col-md-4">
                     <label>Jenis Kelamin</label>
                     <select class="form-select" name="gender" aria-label="Default select example">
-                        <option value="Men">Laki-Laki</option>
-                        <option value="Female">Perempuan</option>
+                        <option value="Men" <?php if ($userData['jenis_kelamin'] == 'Men')
+                            echo 'selected'; ?>>Men
+                        </option>
+                        <option value="Female" <?php if ($userData['jenis_kelamin'] == 'Female')
+                            echo 'selected'; ?>>Female
+                        </option>
                     </select>
+
                 </div>
             </div>
             <div class="row  d-flex justify-content-center">
                 <div class="col-md-4">
                     <label>No Hp</label>
-                    <input type="text" name="phoneNumber" class="form-control">
+                    <input type="text" name="phoneNumber" value="<?= $userData['nomor_handphone']; ?>"
+                           class="form-control">
                 </div>
                 <div class="col-md-4">
                     <label>Tanggal Lahir</label>
-                    <input type="date" name="birthDate" class="form-control">
+                    <input type="date" name="birthDate" value="<?= $userData['tanggal_lahir']; ?>" class="form-control">
                 </div>
             </div>
             <div class="row  d-flex justify-content-center">
                 <div class="col-md-8">
                     <label>Email</label>
-                    <input type="email" name="email" class="form-control">
+                    <input type="email" name="email" value="<?= $userData['email']; ?>" class="form-control">
                 </div>
             </div>
             <div class="row mt-3">

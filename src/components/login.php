@@ -28,7 +28,6 @@ if (isset($_POST["login"])) {
             //ambil data user
             $user = mysqli_fetch_assoc($result);
             $_SESSION['id_register'] = $user['id_register'];
-            $_SESSION['image']= $user['image'];
             $_SESSION['username'] =$user['username'];
 
             header("Location: ../dashboard.php");
